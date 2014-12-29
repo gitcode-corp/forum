@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa tematu</th>
+            <th>Odpowiedzi</th>
+            <th>Autor tematu</th>
+            <th>Osttni post</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->topics as $topic) { ?>
+        <tr>
+            <td><a href="/section/<?php echo $topic->getSection()->getId() ?>/topic/<?php echo $topic->getId() ?>"><?php echo $topic->getName(); ?>A</a></td>
+            <td><?php echo $topic->getAmountPosts(); ?></td>
+            <td><?php echo ($topic->getLastPost()) ? $topic->getLastPost()->getUsername() : ""; ?></td>
+            <td><?php echo ($topic->getLastPost()) ? $topic->getLastPost()->getCreatedOnAsString() : ""; ?></td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>

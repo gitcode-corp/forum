@@ -1,9 +1,11 @@
-<?php
-$this->includeFile('Forum/view/layout/header.phtml');
-echo "VIEW!!!";
-
-foreach ($this->sections as $section) {
-    ?>
-    <a href="/"></a>
-    <?php
-}
+<?php foreach ($this->sections as $section) { ?>
+    <h3><a href="/section/<?php echo $section->getId() ?>/topics"><?php echo $section->getName(); ?></a></h3>
+    <p><?php echo $section->getDescription(); ?></p>
+    <p>
+        Tematów: <?php echo $section->getAmountTopics(); ?>,
+        <?php if ($section->getLastTopic()) { ?>
+            Ostatni post w: <?php echo $section->getLastTopic()->getName() ?>
+            przez: <?php echo $section->getLastPost()->getUsername() ?>
+        <?php } ?>
+    </p>
+<?php } ?>

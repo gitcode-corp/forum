@@ -10,7 +10,7 @@ class SectionManager
      */
     public function create(array $data = [])
     {
-        $section = new \Forum\Entity\Section();
+        $section = new \Forum\Model\Entity\Section();
         
         if (array_key_exists("s_id", $data)) {
             $section->setId($data['s_id']);
@@ -25,7 +25,7 @@ class SectionManager
         }
         
         if (array_key_exists("s_amount_topics", $data)) {
-            $section->setAmountTopic((int)$data['s_amount_topics']);
+            $section->setAmountTopics((int)$data['s_amount_topics']);
         }
         
         if (array_key_exists("s_is_closed", $data)) {

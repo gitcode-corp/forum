@@ -1,11 +1,11 @@
 <?php
 
-namespace Forum\Entity;
+namespace Forum\Model\Entity;
 
-class Topic
+class Section
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
     
@@ -22,7 +22,7 @@ class Topic
     /**
      * @var int
      */
-    private $amountPosts;
+    private $amountTopics;
     
     /**
      * @var bool
@@ -35,14 +35,11 @@ class Topic
     private $createdOn;
     
     /**
-     * @var Section
+     *
+     * @var Topic
      */
-    private $section;
+    private $lastTopic;
     
-    /**
-     * @var Post
-     */
-    private $lastPost;
     
     public function getId()
     {
@@ -59,9 +56,9 @@ class Topic
         return $this->description;
     }
 
-    public function getAmountPosts()
+    public function getAmountTopics()
     {
-        return $this->amountPosts;
+        return $this->amountTopics;
     }
 
     public function isClosed()
@@ -69,19 +66,9 @@ class Topic
         return $this->isClosed;
     }
 
-    public function getCreatedOn()
+    public function getCreatedOn() 
     {
         return $this->createdOn;
-    }
-
-    public function getSection()
-    {
-        return $this->section;
-    }
-
-    public function getLastPost()
-    {
-        return $this->lastPost;
     }
 
     public function setId($id)
@@ -102,9 +89,9 @@ class Topic
         return $this;
     }
 
-    public function setAmountPosts($amountPosts)
+    public function setAmountTopics($amountTopics)
     {
-        $this->amountPosts = $amountPosts;
+        $this->amountTopics = $amountTopics;
         return $this;
     }
 
@@ -119,16 +106,24 @@ class Topic
         $this->createdOn = $createdOn;
         return $this;
     }
-
-    public function setSection(Section $section)
+    
+    public function getLastTopic()
     {
-        $this->section = $section;
-        return $this;
+        return $this->lastTopic;
     }
 
-    public function setLastPost(Post $lastPost)
+    public function setLastTopic(Topic $lastTopic = null)
     {
-        $this->lastPost = $lastPost;
+        $this->lastTopic = $lastTopic;
         return $this;
+    }
+    
+    public function getLastPost()
+    {
+        if ($this->getLastTopic()) {
+            return $this->getLastTopic()->getLastPost();
+        }
+        
+        return null;
     }
 }

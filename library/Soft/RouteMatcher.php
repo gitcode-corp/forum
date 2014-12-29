@@ -8,6 +8,11 @@
       */
      private $request;
      
+     /**
+      * @var array
+      */
+     private $uriParams = [];
+     
      private $routes = [
          'main' => [
              'pattern' => '/',
@@ -22,37 +27,37 @@
              'method' => 'GET'
          ],
          'topic-list' => [
-             'pattern' => 'section/[:sectionId]/topics',
+             'pattern' => '/section/[:sectionId]/topics',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'listAction',
              'method' => 'GET'
          ],
          'topic-view' => [
-             'pattern' => 'section/[:sectionId]/topic/[:topicId]',
-             'controller' => 'Forum\Controller\TopicController',
-             'action' => 'viewAction',
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]',
+             'controller' => 'Forum\Controller\PostController',
+             'action' => 'listAction',
              'method' => 'GET'
          ],
          'topic-add' => [
-             'pattern' => 'section/[:sectionId]/topic/add',
+             'pattern' => '/section/[:sectionId]/topic/add',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'addAction',
              'method' => 'GET'
          ],
          'topic-save' => [
-             'pattern' => 'section/[:sectionId]/topic/add',
+             'pattern' => '/section/[:sectionId]/topic/add',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'createAction',
              'method' => 'POST'
          ],
          'post-add' => [
-             'pattern' => 'section/[:sectionId]/topic/[:topicId]/add-post',
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',
              'controller' => 'Forum\Controller\PostController',
              'action' => 'addAction',
              'method' => 'GET'
          ],
          'post-save' => [
-             'pattern' => 'section/[:sectionId]/topic/[:topicId]/add-post',
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',
              'controller' => 'Forum\Controller\PostController',
              'action' => 'createAction',
              'method' => 'POST'
@@ -82,7 +87,7 @@
                 }
             }
             
-            //$options['params']['id'] = $this->getParam($uriParts);
+            $options['params'] = $this->uriParams;
             return $options;
             
             
@@ -94,13 +99,14 @@
     /**
      * @param array $uriParts
      * @param array $routeParts
+     * @param int $part
      * @return bool
      */
     private function isValidPart(array $uriParts, array $routeParts, $part)
     {
         if ($uriParts[$part] === $routeParts[$part]) {
             return true;
-        } elseif ($routeParts[$part][0] === '[' && $this->getParam($uriParts, $part)) {
+        } elseif ($routeParts[$part][0] === '[' && $this->getParam($uriParts, $routeParts, $part)) {
             return true;
         } else {
             return false;
@@ -109,12 +115,13 @@
     
     /**
      * @param array $uriParts
+     * @param array $routeParts
      * @param int $part
-     * @return int
      */
-    private function getId(array $uriParts, $part)
+    private function getParam(array $uriParts, array $routeParts, $part)
     {
-        return (int) $uriParts[$part];
+        $paramName = str_replace(["[:", "]"], "", $routeParts[$part]);
+        $this->uriParams[$paramName] = (int) $uriParts[$part];
     }
     
     /**

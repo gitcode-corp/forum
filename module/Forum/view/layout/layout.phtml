@@ -1,3 +1,13 @@
-<h1>LAYOUT<h1/>
-<?php $this->includeFile($this->content, $this->contentPath) ?>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <?php $this->includeFile('Forum/view/layout/header.phtml'); ?>
+    <body style="width:80%; margin: 0 auto;">
+        <div style="">
+            <h1>FORUM PHP</h1>
+        </div>
+        <div id="content">
+            <?php $this->includeFile($this->content, $this->contentPath); ?>
+        </div>
+    </body>
+    <?php $this->includeFile('Forum/view/layout/footer.phtml'); ?>
+</html>

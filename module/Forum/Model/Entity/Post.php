@@ -1,6 +1,6 @@
 <?php
 
-namespace Forum\Entity;
+namespace Forum\Model\Entity;
 
 class Post
 {
@@ -82,5 +82,10 @@ class Post
     {
         $this->topic = $topic;
         return $this;
+    }
+    
+    public function getCreatedOnAsString()
+    {
+        return $this->createdOn->format("d-m-Y H:i:s");
     }
 }

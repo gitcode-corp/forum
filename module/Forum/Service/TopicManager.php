@@ -10,7 +10,7 @@ class TopicManager
      */
     public function create(array $data = [])
     {
-        $topic = new \Forum\Entity\Topic();
+        $topic = new \Forum\Model\Entity\Topic();
         
         if (array_key_exists("t_id", $data)) {
             $topic->setId($data['t_id']);

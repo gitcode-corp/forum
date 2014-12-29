@@ -10,7 +10,7 @@ class PostManager
      */
     public function create(array $data = [])
     {
-        $post = new \Forum\Entity\Post();
+        $post = new \Forum\Model\Entity\Post();
         
         if (array_key_exists("p_id", $data)) {
             $post->setId($data['p_id']);
@@ -21,7 +21,7 @@ class PostManager
         }
         
         if (array_key_exists("p_content", $data)) {
-            $post->setContentn($data['p_content']);
+            $post->setContent($data['p_content']);
         }
         
         if (array_key_exists("p_created_on", $data)) {

@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th colspan="2"><?php echo $this->topic->getName() ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->posts as $post) { ?>
+        <tr>
+            <td><?php echo $post->getUsername() ?></td>
+            <td><?php echo $post->getCreatedOnAsString() ?></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><?php echo $post->getContent(); ?></td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>

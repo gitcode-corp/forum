@@ -1,16 +1,11 @@
 <?php
 
-namespace Forum\Entity\Command;
+namespace Soft;
 
-use Soft\DatabaseConnectionFactory;
-
-class CommandFactory
+abstract class AbstractCommandFactory
 {
     private static $commands = [];
-    
-    private static $commandMap = [
-        'Section\RetriveAllWithLastTopic' => 'Forum\Entity\Command\Section\RetrieveAllWithLastTopicCommand'
-    ];
+    protected static $commandMap = [];
     
     public static function create($commandAlias)
     {
@@ -20,7 +15,7 @@ class CommandFactory
             return self::$commands[$commandAlias];
         }
         
-        $commandClass = self::$commandMap[$commandAlias];
+        $commandClass = static::$commandMap[$commandAlias];
             
         self::$commands[$commandAlias] = new $commandClass(DatabaseConnectionFactory::create());
         
@@ -29,7 +24,7 @@ class CommandFactory
     
     private static function validate($commandAlias)
     {
-        if (!array_key_exists($commandAlias, self::$commandMap)) {
+        if (!array_key_exists($commandAlias, static::$commandMap)) {
             throw new \InvalidArgumentException("Wrong command alias: " . $commandAlias);
         }
     }
