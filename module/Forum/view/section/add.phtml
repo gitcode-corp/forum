@@ -1,0 +1,26 @@
+<form method="POST">
+    <?php foreach ($this->form->getError("unexpected") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("s_name") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+
+    <div>
+        <label>Tytul:</label><br/>
+        <input type="text" name="s_name" value="<?php echo $this->form->get("s_name") ?>" maxlength="255" style="width:610px" />
+    </div>
+    
+    <?php foreach ($this->form->getError("s_description") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Podsumowanie:</label><br/>
+        <textarea name="s_description" rows="4" cols="74" ><?php echo $this->form->get("s_description") ?></textarea>
+    </div>
+    
+    <input type="submit" value="zapisz" />
+    
+</form>

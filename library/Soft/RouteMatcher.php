@@ -20,14 +20,20 @@
              'action' => 'viewAction',
              'method' => 'GET',
          ],
-         'section' => [
-             'pattern' => '/sections',
+         'section-add' => [
+             'pattern' => '/section/add',
              'controller' => 'Forum\Controller\SectionController',
-             'action' => 'listAction',
+             'action' => 'addAction',
              'method' => 'GET'
          ],
+         'section-save' => [
+             'pattern' => '/section/add',
+             'controller' => 'Forum\Controller\SectionController',
+             'action' => 'createAction',
+             'method' => 'POST'
+         ],
          'topic-list' => [
-             'pattern' => '/section/[:sectionId]/topics',
+             'pattern' => '/section/[:sectionId]',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'listAction',
              'method' => 'GET'
@@ -42,13 +48,15 @@
              'pattern' => '/section/[:sectionId]/topic/add',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'addAction',
-             'method' => 'GET'
+             'method' => 'GET',
+             'roles' => ['ROLE_ADD_TOPIC']
          ],
          'topic-save' => [
              'pattern' => '/section/[:sectionId]/topic/add',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'createAction',
-             'method' => 'POST'
+             'method' => 'POST',
+             'roles' => ['ROLE_ADD_TOPIC']
          ],
          'post-add' => [
              'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',
@@ -60,8 +68,25 @@
              'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',
              'controller' => 'Forum\Controller\PostController',
              'action' => 'createAction',
+             'method' => 'POST',
+         ],
+         'login' => [
+             'pattern' => '/login',
+             'controller' => 'Security\Controller\AuthenticationController',
+             'action' => 'loginAction', 
+             'method' => 'GET'
+         ],
+         'authenticate' => [
+             'pattern' => '/login',
+             'controller' => 'Security\Controller\AuthenticationController',
+             'action' => 'authenticateAction', 
              'method' => 'POST'
-         ]
+         ],
+         'logout' => [
+             'pattern' => '/logout',
+             'controller' => 'Security\Controller\AuthenticationController',
+             'action' => 'logoutAction',   
+         ],
      ];
      
      public function __construct(Request $request)
@@ -80,17 +105,19 @@
                 continue;
             }
             
-            $routeParts = explode('/', $options['pattern']);   
+            $routeParts = explode('/', $options['pattern']); 
+            $isUriValid = true;
             foreach ($uriParts as $index=>$uriPart) {
                 if (!$this->isValidPart($uriParts, $routeParts, $index)) {
+                    $isUriValid = false;
                     continue;
                 }
             }
             
-            $options['params'] = $this->uriParams;
-            return $options;
-            
-            
+            if ($isUriValid) {
+                $options['params'] = $this->uriParams;
+                return $options;
+            }  
         }
         
         throw new Exception\PageNotFoundException();
@@ -104,9 +131,9 @@
      */
     private function isValidPart(array $uriParts, array $routeParts, $part)
     {
-        if ($uriParts[$part] === $routeParts[$part]) {
+        if ($uriParts[$part] === $routeParts[$part]) { 
             return true;
-        } elseif ($routeParts[$part][0] === '[' && $this->getParam($uriParts, $routeParts, $part)) {
+        } elseif ($routeParts[$part] && $routeParts[$part][0] === '[' && $this->getParam($uriParts, $routeParts, $part)) {
             return true;
         } else {
             return false;
@@ -122,6 +149,8 @@
     {
         $paramName = str_replace(["[:", "]"], "", $routeParts[$part]);
         $this->uriParams[$paramName] = (int) $uriParts[$part];
+        
+        return $this->uriParams[$paramName];
     }
     
     /**
@@ -135,5 +164,13 @@
         }
         
         return $this->request->isMethod($method);
+    }
+    
+    /**
+     * @return array
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
     }
  }

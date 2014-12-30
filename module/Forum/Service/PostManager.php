@@ -16,10 +16,6 @@ class PostManager
             $post->setId($data['p_id']);
         }
         
-        if (array_key_exists("p_username", $data)) {
-            $post->setUsername($data['p_username']);
-        }
-        
         if (array_key_exists("p_content", $data)) {
             $post->setContent($data['p_content']);
         }

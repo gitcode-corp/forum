@@ -35,13 +35,18 @@ abstract class AbstractCommand
     
     private function query($sql)
     {
-        $result = $this->dbConnection->query($this->dbConnection->escape_string($sql));
+        $result = $this->dbConnection->query($sql);
 
         if ($this->dbConnection->error) {
             throw new \Exception("SQL error: " . $this->dbConnection->error , 500);
         }
         
         return $result;
+    }
+    
+    protected function escapeString($string)
+    {
+        return $this->dbConnection->real_escape_string($string);
     }
 }
 

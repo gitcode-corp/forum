@@ -28,12 +28,14 @@ class RetrieveAllInTopicCommand extends AbstractCommand
     
     public function execute()
     {
-        $sql = "SELECT p.id AS p_id, p.username AS p_username, p.content AS p_content, p.created_on AS p_created_on, ";
+        $sql = "SELECT p.id AS p_id, p.content AS p_content, p.created_on AS p_created_on, ";
+        $sql .= "u.id AS u_id, u.username AS u_username, ";
         $sql .= "s.id AS s_id, ";
         $sql .= "t.id AS t_id, t.name AS t_name ";
         $sql .= "FROM posts p ";
         $sql .= "INNER JOIN topics t on t.id = p.topic_id ";
         $sql .= "INNER JOIN sections s on s.id = t.section_id ";
+        $sql .= "INNER JOIN users u on u.id = p.user_id ";
         $sql .= "WHERE s.id = " . $this->sectionId . " ";
         $sql .= "AND t.id = " . $this->topicId . " ";
         $sql .= "ORDER BY p.created_on ASC";
@@ -41,8 +43,9 @@ class RetrieveAllInTopicCommand extends AbstractCommand
         $rows = $this->fetchAll($sql);
         
         $sectionManager = new \Forum\Service\SectionManager();
-        $topicManager = new \Forum\Service\TopicManager;
-        $postManager = new \Forum\Service\PostManager;
+        $topicManager = new \Forum\Service\TopicManager();
+        $postManager = new \Forum\Service\PostManager();
+        $userManager = new \Security\Service\UserManager();
 
         $collection = [];
         foreach ($rows as $row) {
@@ -51,8 +54,11 @@ class RetrieveAllInTopicCommand extends AbstractCommand
             $topic = $topicManager->create($row);
             $topic->setSection($section);
             
+            $user = $userManager->create($row);
+            
             $post = $postManager->create($row);
             $post->setTopic($topic);
+            $post->setUser($user);
 
             $collection[] = $post;
         }

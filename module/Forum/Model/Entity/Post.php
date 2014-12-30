@@ -2,6 +2,8 @@
 
 namespace Forum\Model\Entity;
 
+use Security\Model\Entity\User;
+
 class Post
 {
     /**
@@ -10,9 +12,9 @@ class Post
     private $id;
     
     /**
-     * @var string
+     * @var User
      */
-    private $username;
+    private $user;
     
     /**
      * @var string
@@ -33,10 +35,15 @@ class Post
     {
         return $this->id;
     }
+    
+    public function getUser()
+    {
+        return $this->getUser();
+    }
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->getUser()->getUsername();
     }
 
     public function getContent()
@@ -60,9 +67,9 @@ class Post
         return $this;
     }
 
-    public function setUsername($username)
+    public function setUser(User $user)
     {
-        $this->username = $username;
+        $this->user = $user;
         return $this;
     }
 

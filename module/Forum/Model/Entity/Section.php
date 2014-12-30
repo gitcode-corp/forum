@@ -2,6 +2,8 @@
 
 namespace Forum\Model\Entity;
 
+use Security\Model\Entity\User;
+
 class Section
 {
     /**
@@ -35,10 +37,14 @@ class Section
     private $createdOn;
     
     /**
-     *
      * @var Topic
      */
     private $lastTopic;
+    
+    /**
+     * @var User
+     */
+    private $user;
     
     
     public function getId()
@@ -112,7 +118,7 @@ class Section
         return $this->lastTopic;
     }
 
-    public function setLastTopic(Topic $lastTopic = null)
+    public function setLastTopic(Topic $lastTopic)
     {
         $this->lastTopic = $lastTopic;
         return $this;
@@ -125,5 +131,16 @@ class Section
         }
         
         return null;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+        return $this;
     }
 }

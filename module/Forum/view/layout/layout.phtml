@@ -1,13 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
     <?php $this->includeFile('Forum/view/layout/header.phtml'); ?>
-    <body style="width:80%; margin: 0 auto;">
-        <div style="">
-            <h1>FORUM PHP</h1>
-        </div>
-        <div id="content">
-            <?php $this->includeFile($this->content, $this->contentPath); ?>
-        </div>
+    
+    <body>
+        <div id="forum_wrapper">
+            <div id="forum_header"> </div>
+
+            <div id="forum_menu">
+                <ul>
+                    <li><a <?php echo ($this->_menu === "home")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("main") ?>">Home</a></li>
+                    <?php if ($this->_guard->isAuthenticated()) { ?>
+                        <li><a href="<?php echo $this->_uri->generate("logout") ?>" class="last">Wyloguj</a></li>
+                    <?php } else { ?>
+                        <li><a <?php echo ($this->_menu === "login")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("login") ?>" class="last">Zaloguj</a></li>
+                    <?php } ?>
+                        
+                    <?php if ($this->_guard->isGranted("ROLE_ADD_SECTION")) { ?>
+                        <li style="float: right">
+                            <a <?php echo ($this->_menu === "section-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("section-add") ?>">+ nowy dzial</a> 
+                        </li>
+                    <?php } ?>
+                </ul>   	
+            </div> <!-- end of forum_menu -->
+
+            <div id="forum_main">
+                <div id="forum_content">
+                    <?php $this->includeFile($this->_content, $this->_contentPath); ?>
+                </div>
+
+                <div class="cleaner"></div>
+            </div>
+            
+            <?php $this->includeFile('Forum/view/layout/footer.phtml'); ?> 
+            
+        </div> 
     </body>
-    <?php $this->includeFile('Forum/view/layout/footer.phtml'); ?>
 </html>

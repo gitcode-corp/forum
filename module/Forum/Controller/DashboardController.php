@@ -10,7 +10,13 @@ class DashboardController extends AbstractController
     {
         $command = CommandFactory::create('Section\RetrieveAllWithLastTopic');
         $sections = $command->execute();
-        return $this->createViewModel('Forum/view/dashboard/view.phtml', ['sections' => $sections]);
+        return $this->createViewModel(
+                'Forum/view/dashboard/view.phtml', 
+                [
+                    'sections' => $sections,
+                    '_menu' => "home"
+                ]
+            );
     }
 }
 

@@ -4,5 +4,4 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^address/([0-9]*)/?$ index.php?addressid=$1 [L]
 RewriteRule ^(.*)$ index.php [NC,L]

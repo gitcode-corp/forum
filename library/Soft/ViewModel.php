@@ -20,8 +20,11 @@ class ViewModel
         return $this;
     }
     
-    public function assign($name, $value)
+    public function assign($name, $value, $escapeString = true)
     {
+        if ($escapeString && is_string($value)) {
+            $value = htmlspecialchars($value);
+        }
         $this->$name = $value;
         return $this;
     }
@@ -30,8 +33,8 @@ class ViewModel
     {
         $viewPath = $this->generatePath($this->view, $this->path);
         if ($this->layout) {
-            $this->assign('content', $this->view);
-            $this->assign('contentPath', $this->path);
+            $this->assign('_content', $this->view);
+            $this->assign('_contentPath', $this->path);
             $template = $this->layout;
         } else {
             $template = $viewPath;

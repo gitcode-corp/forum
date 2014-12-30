@@ -1,11 +1,42 @@
-<?php foreach ($this->sections as $section) { ?>
-    <h3><a href="/section/<?php echo $section->getId() ?>/topics"><?php echo $section->getName(); ?></a></h3>
-    <p><?php echo $section->getDescription(); ?></p>
-    <p>
-        Tematów: <?php echo $section->getAmountTopics(); ?>,
-        <?php if ($section->getLastTopic()) { ?>
-            Ostatni post w: <?php echo $section->getLastTopic()->getName() ?>
-            przez: <?php echo $section->getLastPost()->getUsername() ?>
+<div id="comment_section">
+    <ol class="comments first_level">
+<!--        <li>
+            <div class="comment_box commentbox1">
+
+                <div class="gravatar">
+                    <img src="images/avator.png" alt="author" />
+                </div>
+
+                <div class="comment_text">
+                    <div class="comment_author">Book<span class="date">June 5th, 2048</span><span class="time">1:08 pm</span></div>
+                    <p>Etiam dictum est et arcu viverra a hendrerit lorem elementum. Duis diam ligula, luctus sit amet pellentesque ut, luctus vel enim. Nullam eu sapien aliquet magna convallis posuere nec vitae leo. Duis euismod fringilla diam at facilisis.</p>
+                    <div class="btn_more float_r"><a href="#"><span>+</span> Reply</a></div>
+                </div>
+                <div class="cleaner"></div>
+            </div>  
+        </li>-->
+        
+        <?php foreach ($this->sections as $section) { ?>
+            <li>
+                <div class="comment_box commentbox1">
+                    <div class="comment_text">
+                        <div class="comment_author">
+                            <a href="/section/<?php echo $section->getId() ?>" style="color: #081e30"><?php echo $section->getName(); ?></a>
+                            <span class="date">Tematów: <?php echo $section->getAmountTopics(); ?></span>
+                        </div>
+                        <p><?php echo $section->getDescription(); ?></p>
+                        <?php if ($section->getLastTopic()) { ?>
+                            <p>
+                                Ostatni post w: <?php echo $section->getLastTopic()->getName() ?>
+                                przez: <?php echo $section->getLastPost()->getUsername() ?>
+                            </p>
+                        <?php } ?>
+                    </div>
+                    <div class="cleaner"></div>
+                </div>  
+            </li>
         <?php } ?>
-    </p>
-<?php } ?>
+    </ol>
+</div>
+
+<div class="cleaner"></div>

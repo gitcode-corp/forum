@@ -5,6 +5,8 @@ class Application
 {
     public static function init()
     {
+        Session::start();
+        
         $request = new Request();
         $response = new Response();
         $routeMatcher = new RouteMatcher($request);

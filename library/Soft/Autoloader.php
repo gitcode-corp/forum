@@ -10,10 +10,11 @@ class Autoloader {
       'Soft' => 'library/',  
       'Model' => 'model/',
       'Validator' => 'validator/',
-      'Forum' => 'module/'
+      'Forum' => 'module/',
+      'Security' => 'module/',
     );
     
-    public function __construct($directory)
+    public function __construct()
     {
         $dirname = realpath(dirname(__DIR__));
         $this->directory = str_replace(self::PATH, '', $dirname);
