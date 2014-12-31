@@ -3,17 +3,38 @@
 namespace Forum\Service;
 
 use Forum\Model\Entity\Section;
+use Forum\Model\Entity\Command\Section\InsertCommand;
+use Forum\Model\Entity\Command\Section\UpdateCommand;
+use Forum\Model\Entity\Command\Section\DeleteCommand;
 
 class SectionManager
 {
+    /**
+     * @var InsertCommand
+     */
     private $insertSectionCommand;
+    
+    /**
+     * @var UpdateCommand
+     */
     private $updateSectionCommand;
+    
+    /**
+     * @var DeleteCommand 
+     */
     private $deleteSectionCommand;
     
-    public function __construct()
+    public function __construct(
+        InsertCommand $inertSectionCommand,
+        UpdateCommand $updateSectionCommand,
+        DeleteCommand $deleteSectionCommand
+    )
     {
-        ;
+        $this->insertSectionCommand = $inertSectionCommand;
+        $this->updateSectionCommand = $updateSectionCommand;
+        $this->deleteSectionCommand = $deleteSectionCommand;
     }
+    
     /**
      * @param array $data
      * @return \Forum\Entity\Section
@@ -60,15 +81,22 @@ class SectionManager
         }
         
         if ($section->getId()) {
-            $this-update($section);
+            $this->update($section);
         } else {
-            $this->insert($section);
+            return $this->insert($section);
         }
     }
     
     private function insert(Section $section)
     {
-        
+        $this->insertSectionCommand->setSection($section);
+        return $this->insertSectionCommand->execute();
+    }
+    
+    private function update(Section $section)
+    {
+        $this->updateSectionCommand->setSection($section);
+        return $this->updateSectionCommand->execute();
     }
    
 }

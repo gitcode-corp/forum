@@ -118,7 +118,7 @@ class Section
         return $this->lastTopic;
     }
 
-    public function setLastTopic(Topic $lastTopic)
+    public function setLastTopic(Topic $lastTopic = null)
     {
         $this->lastTopic = $lastTopic;
         return $this;

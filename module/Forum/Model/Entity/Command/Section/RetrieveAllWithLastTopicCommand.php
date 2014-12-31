@@ -3,6 +3,10 @@
 namespace Forum\Model\Entity\Command\Section;
 
 use Soft\AbstractCommand;
+use Forum\Service\Factory\SectionManagerFactory;
+use Forum\Service\Factory\TopicManagerFactory;
+use Forum\Service\Factory\PostManagerFactory;
+use Security\Service\Factory\UserManagerFactory;
 
 class RetrieveAllWithLastTopicCommand extends AbstractCommand
 {
@@ -19,10 +23,10 @@ class RetrieveAllWithLastTopicCommand extends AbstractCommand
 
         $rows = $this->fetchAll($sql);
         
-        $sectionManager = new \Forum\Service\SectionManager();
-        $topicManager = new \Forum\Service\TopicManager();
-        $postManager = new \Forum\Service\PostManager();
-        $userManager = new \Security\Service\UserManager();
+        $sectionManager = SectionManagerFactory::create();
+        $topicManager = TopicManagerFactory::create();
+        $postManager = PostManagerFactory::create();
+        $userManager = UserManagerFactory::create();
         
         $collection = [];
         foreach ($rows as $row) {

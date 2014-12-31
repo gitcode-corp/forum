@@ -2,6 +2,8 @@
 
 namespace Forum\Model\Entity;
 
+use Security\Model\Entity\User;
+
 class Topic
 {
     /**
@@ -44,6 +46,11 @@ class Topic
      */
     private $lastPost;
     
+    /**
+     * @var User
+     */
+    private $user;
+    
     public function getId()
     {
         return $this->id;
@@ -82,6 +89,11 @@ class Topic
     public function getLastPost()
     {
         return $this->lastPost;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
     }
 
     public function setId($id)
@@ -129,6 +141,12 @@ class Topic
     public function setLastPost(Post $lastPost = null)
     {
         $this->lastPost = $lastPost;
+        return $this;
+    }
+    
+    public function setUser(User $user)
+    {
+        $this->user = $user;
         return $this;
     }
 }

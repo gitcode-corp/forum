@@ -88,13 +88,14 @@ abstract class AbstractController
      * @param array $params
      * @return \Soft\ViewModel
      */
-    public function createViewModel($viewPath, $params = [])
+    protected function createViewModel($viewPath, $params = [])
     {
         $viewModel = new \Soft\ViewModel($viewPath);
         $viewModel->setLayout('Forum/view/layout/layout.phtml');
         $viewModel->assign('_uri', $this->getUriService());
         $viewModel->assign('_guard', $this->getGuardService());
         $viewModel->assign('_menu', "");
+        $viewModel->assign('_user', $this->getAuthUser());
         foreach ($params as $key=>$value) {
             $viewModel->assign($key, $value);
         }
@@ -102,20 +103,45 @@ abstract class AbstractController
         return $viewModel;
     }
     
-    public function redirect($name, array $params = [])
+    protected function redirect($name, array $params = [])
     {
         $url = $this->getUriService()->generate($name, $params);
         header("Location: " . $url);
         \Soft\Application::terminate();
     }
     
-    public function getAuthUserId()
+    protected function getAuthUserId()
+    {
+        $user = $this->getAuthUser();
+        
+        return $user["id"];
+    }
+    
+    protected function getAuthUserToken()
+    {
+        $user = $this->getAuthUser();
+        
+        return $user["token"];
+    }
+    
+    protected function getAuthUser()
     {
         if (!$this->getAuthService()->isUserAuthenticated()) {
             return null;
         }
         
-        $user = $this->getAuthService()->getUser();
-        return $user["id"];
+        return $this->getAuthService()->getUser();
+    }
+    
+    protected function throwPageNonFoundException()
+    {
+        throw new \Soft\Exception\PageNotFoundException();
+    }
+    
+    protected function assertGranted($role)
+    {
+        if (!$this->getGuardService()->isGranted($role)) {
+            $this->getGuardService()->throwForbiddenException();
+        }
     }
 }

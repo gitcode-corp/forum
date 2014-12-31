@@ -3,6 +3,8 @@
 namespace Forum\Model\Entity\Command\Section;
 
 use Soft\AbstractCommand;
+use Forum\Service\Factory\SectionManagerFactory;
+use Security\Service\Factory\UserManagerFactory;
 
 class RetrieveOneCommand extends AbstractCommand
 {
@@ -16,18 +18,32 @@ class RetrieveOneCommand extends AbstractCommand
         $this->sectionId = $id;
     }
     
+    /**
+     * @return \Forum\Model\Entity\Section
+     */
     public function execute()
     {
-        $sql = "SELECT t.id AS t_id, t.name AS t_name, t.description AS t_description, t.amount_posts AS t_amount_posts, t.is_closed AS t_is_closed, t.created_on AS t_created_on ";
-        $sql .= "FROM topics t ";
-        $sql .= "INNER JOIN sections s on s.id = t.section_id ";
-        $sql .= "WHERE s.id = " . $this->sectionId . " ";
+        $sql = "SELECT s.id AS s_id, s.name AS s_name, s.description AS s_description, s.amount_topics AS t_amount_topics, s.is_closed AS s_is_closed, s.created_on AS s_created_on, ";
+        $sql .= "u.id AS u_id, u.username AS u_username, u.email AS u_email, u.amount_posts AS u_amount_posts ";
+        $sql .= "FROM sections s ";
+        $sql .= "INNER JOIN users u on s.user_id = u.id ";
+        $sql .= "WHERE s.id = " . $this->escapeString($this->sectionId);
 
         $row = $this->fetchOne($sql);
         
-        $topicManager = new \Forum\Service\TopicManager;
+        if (!$row) {
+            return null;
+        }
         
-        return $topicManager->create($row);
+        $sectionManager = SectionManagerFactory::create();
+        $userManager = UserManagerFactory::create();
+        
+        $user = $userManager->create($row);
+        $section = $sectionManager->create($row);
+        $section->setUser($user);
+        
+        return $section;
+        
     }
 }
 

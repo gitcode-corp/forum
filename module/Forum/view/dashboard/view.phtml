@@ -1,27 +1,11 @@
 <div id="comment_section">
-    <ol class="comments first_level">
-<!--        <li>
-            <div class="comment_box commentbox1">
-
-                <div class="gravatar">
-                    <img src="images/avator.png" alt="author" />
-                </div>
-
-                <div class="comment_text">
-                    <div class="comment_author">Book<span class="date">June 5th, 2048</span><span class="time">1:08 pm</span></div>
-                    <p>Etiam dictum est et arcu viverra a hendrerit lorem elementum. Duis diam ligula, luctus sit amet pellentesque ut, luctus vel enim. Nullam eu sapien aliquet magna convallis posuere nec vitae leo. Duis euismod fringilla diam at facilisis.</p>
-                    <div class="btn_more float_r"><a href="#"><span>+</span> Reply</a></div>
-                </div>
-                <div class="cleaner"></div>
-            </div>  
-        </li>-->
-        
+    <ol class="comments first_level">        
         <?php foreach ($this->sections as $section) { ?>
             <li>
                 <div class="comment_box commentbox1">
                     <div class="comment_text">
                         <div class="comment_author">
-                            <a href="/section/<?php echo $section->getId() ?>" style="color: #081e30"><?php echo $section->getName(); ?></a>
+                            <a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" =>  $section->getId()]) ?>" style="color: #081e30"><?php echo $section->getName(); ?></a>
                             <span class="date">Tematów: <?php echo $section->getAmountTopics(); ?></span>
                         </div>
                         <p><?php echo $section->getDescription(); ?></p>
@@ -31,7 +15,18 @@
                                 przez: <?php echo $section->getLastPost()->getUsername() ?>
                             </p>
                         <?php } ?>
+                            
+                        <p style="margin-top: 15px">
+                            <?php if ($this->_guard->isGranted("ROLE_EDIT_SECTION")) { ?>
+                                <a href="<?php echo $this->_uri->generate("section-edit", ["sectionId"=>$section->getId()]) ?>">EDYTUJ</a>
+                            <?php } ?>
+                                
+                            <?php if ($this->_guard->isGranted("ROLE_DELETE_SECTION")) { ?>
+                                <a href="<?php echo $this->_uri->generate("section-delete", ["sectionId"=>$section->getId()]) ?>">USUŃ</a>
+                            <?php } ?>
+                        </p>
                     </div>
+                    
                     <div class="cleaner"></div>
                 </div>  
             </li>

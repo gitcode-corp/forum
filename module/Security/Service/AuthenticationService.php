@@ -51,7 +51,8 @@ class AuthenticationService
         $sessionData = [
             "id" => $user->getId(), 
             "username" => $user->getUsername(), 
-            "roles" => $roleName
+            "roles" => $roleName,
+            "token" => substr(md5(rand()), 10, 15)
         ];
         
         \Soft\Session::set("USER", $sessionData);

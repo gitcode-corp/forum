@@ -1,8 +1,8 @@
 <?php
 
-namespace Forum\Model\Form\Section;
+namespace Forum\Model\Form\Topic;
 
-class SectionForm extends \Soft\AbstractForm
+class TopicForm extends \Soft\AbstractForm
 {
     public function __construct(\Soft\AbstractValidator $validator)
     {
@@ -13,10 +13,14 @@ class SectionForm extends \Soft\AbstractForm
     public function getFields()
     {
         return [
-            "s_name",
-            "s_description",
-            "s_is_closed"
+            "t_name",
+            "t_description",
         ];
-    }  
+    }
+    
+    public function isAdminForm()
+    {
+        return false;
+    }
+    
 }
-

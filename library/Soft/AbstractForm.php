@@ -15,6 +15,11 @@ abstract class AbstractForm
     private $errors = [];
     
     /**
+     * @var string
+     */
+    private $csrfToken = "";
+    
+    /**
      * @var \Soft\Validator 
      */
     private $validator;
@@ -42,6 +47,11 @@ abstract class AbstractForm
         return [];
     }
     
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+    
     public function hasError($key)
     {
         return array_key_exists($key, $this->errors);
@@ -50,7 +60,7 @@ abstract class AbstractForm
     public function isValid(array $data = [])
     {
         $this->data = $data;
-        $isValid = $this->validator->isValid($data);
+        $isValid = $this->validator->isValid($data, $this->csrfToken);
         $this->errors = $this->validator->getErrors();
         
         return $isValid;
@@ -67,5 +77,27 @@ abstract class AbstractForm
     public function getData()
     {
         return $this->data;
+    }
+    
+    /**
+     * @param array $data
+     * @return \Soft\AbstractForm
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+    
+    public function setCsrfToken($csrfToken)
+    {
+        $this->csrfToken = $csrfToken;
+        return $this;
+    }
+    
+    public function getCsrfToken()
+    {
+        return $this->csrfToken;
     }
 }

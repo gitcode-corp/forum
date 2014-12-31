@@ -18,9 +18,15 @@
                         
                     <?php if ($this->_guard->isGranted("ROLE_ADD_SECTION")) { ?>
                         <li style="float: right">
-                            <a <?php echo ($this->_menu === "section-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("section-add") ?>">+ nowy dzial</a> 
+                            <a <?php echo ($this->_menu === "section-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("section-add") ?>">+ dzial</a> 
                         </li>
                     <?php } ?>
+                        
+                    <?php if ($this->_guard->isGranted("ROLE_ADD_TOPIC") && isset($this->section) && !$this->section->isClosed()) { ?>
+                        <li style="float: right">
+                            <a <?php echo ($this->_menu === "topic-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("topic-add", ["sectionId" => $this->section->getId()]) ?>">+ temat</a> 
+                        </li>
+                    <?php } ?>    
                 </ul>   	
             </div> <!-- end of forum_menu -->
 

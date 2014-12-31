@@ -2,8 +2,39 @@
 
 namespace Forum\Service;
 
+use Forum\Model\Entity\Topic;
+use Forum\Model\Entity\Command\Topic\InsertCommand;
+use Forum\Model\Entity\Command\Topic\UpdateCommand;
+use Forum\Model\Entity\Command\Topic\DeleteCommand;
+
 class TopicManager
 {
+        /**
+     * @var InsertCommand
+     */
+    private $insertTopicCommand;
+    
+    /**
+     * @var UpdateCommand
+     */
+    private $updateTopicCommand;
+    
+    /**
+     * @var DeleteCommand 
+     */
+    private $deleteTopicCommand;
+    
+    public function __construct(
+        InsertCommand $inertTopicCommand,
+        UpdateCommand $updateTopicCommand,
+        DeleteCommand $deleteTopicCommand
+    )
+    {
+        $this->insertTopicCommand = $inertTopicCommand;
+        $this->updateTopicCommand = $updateTopicCommand;
+        $this->deleteTopicCommand = $deleteTopicCommand;
+    }
+    
     /**
      * @param array $data
      * @return \Forum\Entity\Topic
@@ -43,5 +74,31 @@ class TopicManager
         return $topic;
     }
    
+    public function save(Topic $topic)
+    {
+        if(!$topic->getUser() || !$topic->getUser()->getId()) {
+            throw new \InvalidArgumentException("Cannot save topic without assigned user");
+        } elseif(!$topic->getSection() || !$topic->getSection()->getId()) {
+            throw new \InvalidArgumentException("Cannot save topic without assigned section");
+        }
+        
+        if ($topic->getId()) {
+            $this->update($topic);
+        } else {
+            return $this->insert($topic);
+        }
+    }
+    
+    private function insert(Topic $topic)
+    {
+        $this->insertTopicCommand->setTopic($topic);
+        return $this->insertTopicCommand->execute();
+    }
+    
+    private function update(Topic $topic)
+    {
+        $this->updateTopicCommand->setTopic($topic);
+        return $this->updateTopicCommand->execute();
+    }
 }
 

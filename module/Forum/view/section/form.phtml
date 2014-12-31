@@ -1,0 +1,49 @@
+<form method="POST">
+    <?php foreach ($this->messages as $message) { ?>
+        <div style="color: green"><?php echo $message["message"] ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("csrf_token") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("unexpected") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("s_name") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+
+    <div>
+        <label>Tytul:</label><br/>
+        <input type="text" name="s_name" value="<?php echo $this->form->get("s_name") ?>" maxlength="255" style="width:610px" />
+    </div>
+    
+    <?php foreach ($this->form->getError("s_description") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Podsumowanie:</label><br/>
+        <textarea name="s_description" rows="4" cols="74" ><?php echo $this->form->get("s_description") ?></textarea>
+    </div>
+        
+    <?php foreach ($this->form->getError("s_is_closed") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>    
+    
+    <div>
+        <label>Status:</label>
+        <select name="s_is_closed">
+            <option value="0" <?php echo ($this->form->get("s_is_closed") === "0")? 'selected="selected"' : ""; ?>>Otwarty</option>
+            <option value="1" <?php echo ($this->form->get("s_is_closed") === "1")? 'selected="selected"' : ""; ?>>Zamknięty</option>
+        </select>
+    </div>
+        
+    <input type="hidden" name="csrf_token" value="<?php echo $this->form->getCsrfToken() ?>" />
+    
+    <br /><br />
+    <input type="submit" value="zapisz" />
+    
+</form>

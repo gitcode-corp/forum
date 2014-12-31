@@ -22,7 +22,7 @@ class UriService
         $query = [];
         $pattern = $this->routes[$name]['pattern'];
         foreach ($params as $name=>$value) {
-            $param = '[:' . $value . ']';
+            $param = '[:' . $name . ']';
             if (strpos($pattern, $param) !== false) {
                 $pattern = str_replace($param, $value , $pattern);
             } else {

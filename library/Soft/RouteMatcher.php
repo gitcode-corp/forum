@@ -26,11 +26,29 @@
              'action' => 'addAction',
              'method' => 'GET'
          ],
-         'section-save' => [
+         'section-create' => [
              'pattern' => '/section/add',
              'controller' => 'Forum\Controller\SectionController',
              'action' => 'createAction',
              'method' => 'POST'
+         ],
+         'section-edit' => [
+             'pattern' => '/section/edit/[:sectionId]',
+             'controller' => 'Forum\Controller\SectionController',
+             'action' => 'editAction',
+             'method' => 'GET'
+         ],
+         'section-update' => [
+             'pattern' => '/section/edit/[:sectionId]',
+             'controller' => 'Forum\Controller\SectionController',
+             'action' => 'updateAction',
+             'method' => 'POST'
+         ],
+         'section-delete' => [
+             'pattern' => '/section/remove/[:sectionId]',
+             'controller' => 'Forum\Controller\SectionController',
+             'action' => 'deleteAction',
+             'method' => 'GET'
          ],
          'topic-list' => [
              'pattern' => '/section/[:sectionId]',
@@ -57,6 +75,24 @@
              'action' => 'createAction',
              'method' => 'POST',
              'roles' => ['ROLE_ADD_TOPIC']
+         ],
+         'topic-edit' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/edit',
+             'controller' => 'Forum\Controller\TopicController',
+             'action' => 'editAction',
+             'method' => 'GET'
+         ],
+         'topic-update' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/edit',
+             'controller' => 'Forum\Controller\TopicController',
+             'action' => 'updateAction',
+             'method' => 'POST'
+         ],
+         'topic-delete' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/remove',
+             'controller' => 'Forum\Controller\TopicController',
+             'action' => 'deleteAction',
+             'method' => 'GET'
          ],
          'post-add' => [
              'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',

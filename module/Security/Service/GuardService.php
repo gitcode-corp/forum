@@ -11,8 +11,7 @@ class GuardService
     
     public function __construct(AuthenticationService $authenticationService)
     {
-        $this->authenticationService = $authenticationService;
-        
+        $this->authenticationService = $authenticationService; 
     }
     
     public function isAuthenticated()
@@ -40,5 +39,15 @@ class GuardService
         $user = $this->authenticationService->getUser();
         
         return $user["id"] === $userId;
+    }
+    
+    public function throwForbiddenException()
+    {
+        throw new \Soft\Exception\ForbiddenException();
+    }
+    
+    public function throwUnauthorizedException()
+    {
+        throw new \Soft\Exception\UnauthorizedException();
     }
 }

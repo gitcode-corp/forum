@@ -1,3 +1,58 @@
+<div id="comment_section">
+    <ol class="comments first_level">
+<!--        <li>
+            <div class="comment_box commentbox1">
+
+                <div class="gravatar">
+                    <img src="images/avator.png" alt="author" />
+                </div>
+
+                <div class="comment_text">
+                    <div class="comment_author">Book<span class="date">June 5th, 2048</span><span class="time">1:08 pm</span></div>
+                    <p>Etiam dictum est et arcu viverra a hendrerit lorem elementum. Duis diam ligula, luctus sit amet pellentesque ut, luctus vel enim. Nullam eu sapien aliquet magna convallis posuere nec vitae leo. Duis euismod fringilla diam at facilisis.</p>
+                    <div class="btn_more float_r"><a href="#"><span>+</span> Reply</a></div>
+                </div>
+                <div class="cleaner"></div>
+            </div>  
+        </li>-->
+        
+        <?php foreach ($this->topics as $topic) { ?>
+            <li>
+                <div class="comment_box commentbox1">
+                    <div class="comment_text">
+                        <div class="comment_author">
+                            <a href="<?php echo $this->_uri->generate("topic-view", ["sectionId" => $this->section->getId(), "topicId" => $topic->getId()]) ?>" style="color: #081e30"><?php echo $topic->getName(); ?></a>
+                            <span class="date">Postów: <?php echo $topic->getAmountPosts(); ?></span>
+                        </div>
+                        <p><?php echo $topic->getDescription(); ?></p>
+                        <?php if ($topic->getLastPost()) { ?>
+                            <p>
+                                Ostatni post: <?php echo $topic->getLastPost()->getCreatedOnAsString() ?>
+                                przez: <?php echo $topic->getLastPost()->getUser()->getUsername() ?>
+                            </p>
+                        <?php } ?>
+                            
+                        <p style="margin-top: 15px">
+                            <?php if ((!$topic->isClosed() && !$topic->getSection()->isClosed()) && ($this->_guard->isGranted("ROLE_EDIT_ALL_TOPICS") || ($this->_guard->isGranted("ROLE_EDIT_TOPIC")) && $topic->getUser()->getId() == $this->_user["id"])) { ?>
+                                <a href="<?php echo $this->_uri->generate("topic-edit", ["sectionId" => $this->section->getId(), "topicId" => $topic->getId()]) ?>">EDYTUJ</a>
+                            <?php } ?>
+                                
+                            <?php if ($this->_guard->isGranted("ROLE_DELETE_TOPIC")) { ?>
+                                <a href="<?php echo $this->_uri->generate("topic-delete", ["sectionId" => $this->section->getId(), "topicId" => $topic->getId()]) ?>">USUŃ</a>
+                            <?php } ?>
+                        </p>
+                    </div>
+                    
+                    <div class="cleaner"></div>
+                </div>  
+            </li>
+        <?php } ?>
+    </ol>
+</div>
+
+<div class="cleaner"></div>
+
+
 <table>
     <thead>
         <tr>

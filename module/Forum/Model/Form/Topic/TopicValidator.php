@@ -1,12 +1,12 @@
 <?php
 
-namespace Forum\Model\Form\Section;
+namespace Forum\Model\Form\Topic;
 
 use \Soft\AbstractValidator as Validator;
 
-class SectionValidator extends Validator
+class TopicValidator extends Validator
 {
-    private $data = [];
+    protected $data = [];
 
     public function isValid(array $data, $csrfToken = "")
     {
@@ -15,7 +15,6 @@ class SectionValidator extends Validator
         
         $this->validName();
         $this->validDescription();
-        $this->validIsClosed();
         $this->validUnexpectedFields($this->data);
         $this->validCsrfToken($this->data, $csrfToken);
         
@@ -29,7 +28,7 @@ class SectionValidator extends Validator
     
     private function validName()
     {
-        $fieldName = "s_name";
+        $fieldName = "t_name";
         $fieldLabel = "Tytuł";
         
         if (!$this->validIsFieldExist($this->data, $fieldName, $fieldLabel)) {
@@ -43,7 +42,7 @@ class SectionValidator extends Validator
     
     private function validDescription()
     {
-        $fieldName = "s_description";
+        $fieldName = "t_description";
         $fieldLabel = "Podsumowanie";
         
         if (!$this->validIsFieldExist($this->data, $fieldName, $fieldLabel)) {
@@ -61,17 +60,4 @@ class SectionValidator extends Validator
         
         $this->validIsNotTooLong($this->data, $fieldName, $fieldLabel, 2000);
     }
-    
-    private function validIsClosed()
-    {
-        $fieldName = "s_is_closed";
-        $fieldLabel = "Status";
-        
-        if (!$this->validIsFieldExist($this->data, $fieldName, $fieldLabel)) {
-            return;
-        }
-        
-        $this->validIsInArray($this->data, $fieldName, $fieldLabel, ["0","1"]);
-    }
-    
 }

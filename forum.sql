@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2014 at 02:59 PM
+-- Generation Time: Dec 31, 2014 at 03:36 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `groups_roles` (
   UNIQUE KEY `groups_roles` (`security_group_id`,`security_role_id`),
   KEY `fk_groups_roles_security_groups1_idx` (`security_group_id`),
   KEY `fk_groups_roles_security_roles1_idx` (`security_role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `groups_roles`
@@ -54,7 +54,9 @@ INSERT INTO `groups_roles` (`id`, `security_group_id`, `security_role_id`) VALUE
 (11, 1, 11),
 (12, 1, 12),
 (13, 1, 13),
-(14, 1, 14);
+(14, 1, 14),
+(15, 1, 15),
+(16, 1, 16);
 
 -- --------------------------------------------------------
 
@@ -92,23 +94,28 @@ CREATE TABLE IF NOT EXISTS `sections` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` tinytext,
-  `amount_topics` smallint(6) DEFAULT NULL,
+  `amount_topics` smallint(6) DEFAULT '0',
   `is_closed` tinyint(4) NOT NULL DEFAULT '0',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_sections_topics1_idx` (`last_topic_id`),
   KEY `fk_sections_users1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `sections`
 --
 
 INSERT INTO `sections` (`id`, `last_topic_id`, `user_id`, `name`, `description`, `amount_topics`, `is_closed`, `created_on`) VALUES
-(1, NULL, 0, 'Przedszkole', 'Raczkujesz w tematyce WWW (PHP, SQL, (X)HTML, CSS, JS)? Tutaj możesz stanąć na nogi.', 0, 0, '2014-12-23 16:05:55'),
-(2, NULL, 0, 'PHP', 'Zagadnienia dotyczące programowania w PHP.', 1, 0, '2014-12-23 16:27:42'),
-(3, NULL, 0, 'Gotowe rozwiązania ', 'Wyszukiwanie, instalacja i konfiguracja a także przydatne opinie na temat gotowych skryptów i bibliotek PHP', 2, 0, '2014-12-23 16:10:37'),
-(4, NULL, 0, 'Bazy danych ', 'Serwery baz danych i język SQL.', 0, 0, '2014-12-23 16:07:25');
+(1, NULL, 1, 'Przedszkole', 'Raczkujesz w tematyce WWW (PHP, SQL, (X)HTML, CSS, JS)? Tutaj możesz stanąć na nogi.', 1, 0, '2014-12-31 12:51:37'),
+(2, NULL, 1, 'PHP', 'Zagadnienia dotyczące programowania w PHP.', 1, 0, '2014-12-31 11:03:33'),
+(3, NULL, 1, 'Gotowe rozwiązania ', 'Wyszukiwanie, instalacja i konfiguracja a także przydatne opinie na temat gotowych skryptów i bibliotek PHP', 2, 0, '2014-12-31 11:03:29'),
+(4, NULL, 1, 'Bazy danych ', 'Serwery baz danych i język SQL.', 0, 0, '2014-12-31 11:03:25'),
+(5, NULL, 1, 'testt', '', 0, 0, '2014-12-31 12:43:01'),
+(6, NULL, 1, 'testt', '', 0, 0, '2014-12-31 12:43:03'),
+(7, NULL, 1, 'testt', '', 0, 0, '2014-12-31 12:43:12'),
+(8, NULL, 1, 'testt', '', 0, 0, '2014-12-31 12:43:09'),
+(9, NULL, 1, 'testt', '', 0, 0, '2014-12-31 12:43:06');
 
 -- --------------------------------------------------------
 
@@ -141,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `security_roles` (
   `name` varchar(55) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `security_roles`
@@ -152,11 +159,13 @@ INSERT INTO `security_roles` (`id`, `name`) VALUES
 (9, 'ROLE_ADD_SECTION'),
 (4, 'ROLE_ADD_TOPIC'),
 (14, 'ROLE_CHANGE_PASSWORD'),
+(15, 'ROLE_CHANGE_TOPIC_STATUS'),
 (7, 'ROLE_CLOSE_TOPIC'),
 (2, 'ROLE_DELETE_POST'),
 (11, 'ROLE_DELETE_SECTION'),
 (6, 'ROLE_DELETE_TOPIC'),
 (12, 'ROLE_DELETE_USER'),
+(16, 'ROLE_EDIT_ALL_TOPICS'),
 (1, 'ROLE_EDIT_POST'),
 (10, 'ROLE_EDIT_SECTION'),
 (5, 'ROLE_EDIT_TOPIC'),
@@ -183,14 +192,18 @@ CREATE TABLE IF NOT EXISTS `topics` (
   KEY `fk_topics_sections_idx` (`section_id`),
   KEY `fk_topics_posts1_idx` (`last_post_id`),
   KEY `fk_topics_users1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `topics`
 --
 
 INSERT INTO `topics` (`id`, `section_id`, `last_post_id`, `user_id`, `name`, `description`, `amount_posts`, `is_closed`, `created_on`) VALUES
-(1, 2, NULL, 0, 'Dziedziczenie w PHP', 'Jak to dziala?', 1, 0, '2014-12-23 16:09:12');
+(1, 2, NULL, 0, 'Dziedziczenie w PHP', 'Jak to dziala?', 1, 0, '2014-12-23 16:09:12'),
+(2, 1, NULL, 1, 'temat!!', 'pod!!', NULL, 1, '2014-12-31 12:49:49'),
+(3, 1, NULL, 1, 'temat', 'pod!!', NULL, 0, '2014-12-31 12:50:30'),
+(4, 1, NULL, 1, 'temat', 'pod!!', NULL, 0, '2014-12-31 12:51:10'),
+(5, 1, NULL, 1, 'temat', 'pod!!', NULL, 0, '2014-12-31 12:51:37');
 
 -- --------------------------------------------------------
 

@@ -33,6 +33,18 @@ abstract class AbstractCommand
         return null;
     }
     
+    public function insert($sql)
+    {
+        $this->query($sql);
+
+        return $this->dbConnection->insert_id;
+    }
+    
+    public function update($sql)
+    {
+        return $this->query($sql);
+    }
+    
     private function query($sql)
     {
         $result = $this->dbConnection->query($sql);
