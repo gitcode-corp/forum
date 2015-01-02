@@ -4,6 +4,8 @@ namespace Forum\Model\Entity\Command\Post;
 
 use Soft\AbstractCommand;
 use Forum\Model\Entity\Post;
+use Forum\Model\Entity\Command\CommandFactory;
+use Security\Model\Entity\Command\CommandFactory AS SecurityCommandFactory;
 
 class InsertCommand extends AbstractCommand
 {
@@ -19,16 +21,24 @@ class InsertCommand extends AbstractCommand
     
     public function execute()
     {
-        $sql = "INSERT INTO sections (`name`, `description`, `user_id`) ";
+        $sql = "INSERT INTO posts (`topic_id`, `user_id`, `content`) ";
         $sql .= "VALUES(";
-        $sql .= "'". $this->escapeString($this->section->getName()) ."', ";
-        $sql .= "'". $this->escapeString($this->section->getDescription()) ."', ";
-        $sql .= $this->escapeString($this->section->getUser()->getId()) ." ";
+        $sql .= "'". $this->escapeString($this->post->getTopic()->getId()) ."', ";
+        $sql .= "'". $this->escapeString($this->post->getUser()->getId()) ."', ";
+        $sql .= "'". $this->escapeString($this->post->getContent()) ."' ";
         $sql .= ")";
         
         $id = $this->insert($sql);
-        $this->section->setId($id);
+        $this->post->setId($id);
         
-        return $this->section;
+        $command = CommandFactory::create("Topic\UpdatePostData");
+        $command->setPost($this->post);
+        $command->execute();
+        
+        $command = SecurityCommandFactory::create("User\UpdateAmountPostCommand");
+        $command->setUserId($this->post->getUser()->getId());
+        $command->execute();
+        
+        return $this->post;
     }
 }

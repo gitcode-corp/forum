@@ -1,3 +1,7 @@
+<a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->section->getId()]) ?>">
+    <h3>DZIAL: <?php echo $this->section->getName() ?></h3>
+</a>
+
 <form method="POST">
     <?php foreach ($this->messages as $message) { ?>
         <div style="color: green"><?php echo $message["message"] ?></div>

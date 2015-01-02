@@ -26,7 +26,13 @@
                         <li style="float: right">
                             <a <?php echo ($this->_menu === "topic-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("topic-add", ["sectionId" => $this->section->getId()]) ?>">+ temat</a> 
                         </li>
-                    <?php } ?>    
+                    <?php } ?>
+                        
+                    <?php if ($this->_guard->isGranted("ROLE_ADD_POST") && isset($this->topic) && !$this->topic->isClosed() && !$this->topic->getSection()->isClosed()) { ?>
+                        <li style="float: right">
+                            <a <?php echo ($this->_menu === "post-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("post-add", ["sectionId" => $this->section->getId(), "topicId" => $this->topic->getId()]) ?>">+ post</a> 
+                        </li>
+                    <?php } ?> 
                 </ul>   	
             </div> <!-- end of forum_menu -->
 

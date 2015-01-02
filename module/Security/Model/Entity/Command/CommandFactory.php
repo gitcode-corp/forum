@@ -8,6 +8,8 @@ class CommandFactory extends AbstractCommandFactory
 {
     protected static $commandMap = [
         'User\RetrieveByUsername' => 'Security\Model\Entity\Command\User\RetrieveByUsernameCommand',
-        'Role\RetrieveAllByUserId' => 'Security\Model\Entity\Command\Role\RetrieveAllByUserIdCommand'
+        'User\UpdateAmountPostCommand' => 'Security\Model\Entity\Command\User\UpdateAmountPostCommand',
+        'Role\RetrieveAllByUserId' => 'Security\Model\Entity\Command\Role\RetrieveAllByUserIdCommand',
+        
     ];
 }

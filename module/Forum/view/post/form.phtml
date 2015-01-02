@@ -1,0 +1,36 @@
+<a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->topic->getSection()->getId()]) ?>">
+    <h3>DZIAL: <?php echo $this->topic->getSection()->getName() ?></h3>
+</a>
+<a href="<?php echo $this->_uri->generate("topic-view", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId()]) ?>">
+    <h3>TEMAT: <?php echo $this->topic->getName() ?></h3>
+</a>
+
+<form method="POST">
+    <?php foreach ($this->messages as $message) { ?>
+        <div style="color: green"><?php echo $message["message"] ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("csrf_token") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("unexpected") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    
+    <?php foreach ($this->form->getError("p_content") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Treść:</label><br/>
+        <textarea name="p_content" rows="4" cols="74" ><?php echo $this->form->get("p_content") ?></textarea>
+    </div>
+        
+    <input type="hidden" name="csrf_token" value="<?php echo $this->form->getCsrfToken() ?>" />
+    
+    <br /><br />
+    <input type="submit" value="zapisz" />
+    
+</form>

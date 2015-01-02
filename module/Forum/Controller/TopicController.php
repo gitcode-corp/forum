@@ -20,7 +20,8 @@ class TopicController extends AbstractController
                 'Forum/view/topic/list.phtml', 
                 [
                     'topics' => $topics,
-                    'section' => $section
+                    'section' => $section,
+                    'messages' => \Soft\FlashMessage::get()
                 ]
             );
     }
@@ -88,7 +89,8 @@ class TopicController extends AbstractController
                 'Forum/view/topic/form.phtml', 
                 [
                     "form" => $form,
-                    "messages" => \Soft\FlashMessage::get()
+                    "messages" => \Soft\FlashMessage::get(),
+                    "section" => $topic->getSection()
                 ]
             );
     }
@@ -117,7 +119,8 @@ class TopicController extends AbstractController
                 'Forum/view/topic/form.phtml', 
                 [
                     "form" => $form,
-                    "messages" => []
+                    "messages" => [],
+                    "section" => $topic->getSection()
                 ]
             );
         

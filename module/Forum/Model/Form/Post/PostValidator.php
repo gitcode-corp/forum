@@ -28,8 +28,8 @@ class PostValidator extends Validator
     
     private function validContent()
     {
-        $fieldName = "s_description";
-        $fieldLabel = "Podsumowanie";
+        $fieldName = "p_content";
+        $fieldLabel = "Treść";
         
         if (!$this->validIsFieldExist($this->data, $fieldName, $fieldLabel)) {
             return;

@@ -17,6 +17,11 @@ class Post
     private $user;
     
     /**
+     * @var bool
+     */
+    private $isEditedByAdmin;
+    
+    /**
      * @var string
      */
     private $content;
@@ -38,7 +43,7 @@ class Post
     
     public function getUser()
     {
-        return $this->getUser();
+        return $this->user;
     }
 
     public function getUsername()
@@ -95,4 +100,17 @@ class Post
     {
         return $this->createdOn->format("d-m-Y H:i:s");
     }
+    
+    public function isEditedByAdmin()
+    {
+        return $this->isEditedByAdmin;
+    }
+
+    public function setIsEditedByAdmin($isEditedByAdmin)
+    {
+        $this->isEditedByAdmin = $isEditedByAdmin;
+        return $this;
+    }
+
+
 }

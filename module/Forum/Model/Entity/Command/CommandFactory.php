@@ -18,9 +18,12 @@ class CommandFactory extends AbstractCommandFactory
         'Topic\Insert' => 'Forum\Model\Entity\Command\Topic\InsertCommand',
         'Topic\Update' => 'Forum\Model\Entity\Command\Topic\UpdateCommand',
         'Topic\Delete' => 'Forum\Model\Entity\Command\Topic\DeleteCommand',
+        'Topic\UpdatePostData' => 'Forum\Model\Entity\Command\Topic\UpdatePostDataCommand',
         'Post\RetrieveAllInTopic' => 'Forum\Model\Entity\Command\Post\RetrieveAllInTopicCommand',
         'Post\Insert' => 'Forum\Model\Entity\Command\Post\InsertCommand',
         'Post\Update' => 'Forum\Model\Entity\Command\Post\UpdateCommand',
         'Post\Delete' => 'Forum\Model\Entity\Command\Post\DeleteCommand',
+        'Post\RetrieveOne' => 'Forum\Model\Entity\Command\Post\RetrieveOneCommand',
+        'Post\RemoveContent' => 'Forum\Model\Entity\Command\Post\RemoveContentCommand',
     ];
 }

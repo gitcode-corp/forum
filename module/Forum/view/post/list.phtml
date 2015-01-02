@@ -1,19 +1,41 @@
-<table>
-    <thead>
-        <tr>
-            <th colspan="2"><?php echo $this->topic->getName() ?></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($this->posts as $post) { ?>
-        <tr>
-            <td><?php echo $post->getUsername() ?></td>
-            <td><?php echo $post->getCreatedOnAsString() ?></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><?php echo $post->getContent(); ?></td>
-        </tr>
+<div id="comment_section">
+    <a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->topic->getSection()->getId()]) ?>">
+        <h3>DZIAL: <?php echo $this->topic->getSection()->getName() ?></h3>
+    </a>
+    <a href="<?php echo $this->_uri->generate("topic-view", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId()]) ?>">
+        <h3>TEMAT: <?php echo $this->topic->getName() ?></h3>
+    </a>
+    
+    <?php foreach ($this->messages as $message) { ?>
+        <div style="color: green"><?php echo $message["message"] ?></div>
+    <?php } ?>
+    <ol class="comments first_level">        
+        <?php foreach ($this->postsData as $postData) { $post = $postData["post"] ?>
+            <li>
+                <div class="comment_box commentbox1">
+                    <div class="comment_text">
+                        <div class="comment_author">
+                            Post napisany przez <?php echo $post->getUser()->getUsername(); ?>
+                            <span class="date"><?php echo $post->getCreatedOnAsString(); ?></span>
+                        </div>
+                        <p><?php echo $post->getContent(); ?></p>
+                            
+                        <p style="margin-top: 15px">
+                            <?php if ($postData["canBeEdit"]) { ?>
+                                <a href="<?php echo $this->_uri->generate("post-edit", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId(), "postId" => $post->getId()]) ?>">EDYTUJ</a>
+                            <?php } ?>
+                                
+                            <?php if ($postData["canBeDelete"]) { ?>
+                                <a href="<?php echo $this->_uri->generate("post-remove", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId(), "postId" => $post->getId(), "token"=>$this->_user["token"]]) ?>">USUŃ</a>
+                            <?php } ?>
+                        </p>
+                    </div>
+                    
+                    <div class="cleaner"></div>
+                </div>  
+            </li>
         <?php } ?>
-    </tbody>
-</table>
+    </ol>
+</div>
+
+<div class="cleaner"></div>

@@ -32,7 +32,7 @@ class RetrieveAllInTopicCommand extends AbstractCommand
     
     public function execute()
     {
-        $sql = "SELECT p.id AS p_id, p.content AS p_content, p.created_on AS p_created_on, ";
+        $sql = "SELECT p.id AS p_id, p.content AS p_content, p.is_edited_by_admin AS p_is_edited_by_admin, p.created_on AS p_created_on, ";
         $sql .= "u.id AS u_id, u.username AS u_username, ";
         $sql .= "s.id AS s_id, ";
         $sql .= "t.id AS t_id, t.name AS t_name ";

@@ -1,21 +1,12 @@
+<a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->section->getId()]) ?>">
+    <h3>DZIAL: <?php echo $this->section->getName() ?></h3>
+</a>
+
 <div id="comment_section">
+    <?php foreach ($this->messages as $message) { ?>
+        <div style="color: green"><?php echo $message["message"] ?></div>
+    <?php } ?>
     <ol class="comments first_level">
-<!--        <li>
-            <div class="comment_box commentbox1">
-
-                <div class="gravatar">
-                    <img src="images/avator.png" alt="author" />
-                </div>
-
-                <div class="comment_text">
-                    <div class="comment_author">Book<span class="date">June 5th, 2048</span><span class="time">1:08 pm</span></div>
-                    <p>Etiam dictum est et arcu viverra a hendrerit lorem elementum. Duis diam ligula, luctus sit amet pellentesque ut, luctus vel enim. Nullam eu sapien aliquet magna convallis posuere nec vitae leo. Duis euismod fringilla diam at facilisis.</p>
-                    <div class="btn_more float_r"><a href="#"><span>+</span> Reply</a></div>
-                </div>
-                <div class="cleaner"></div>
-            </div>  
-        </li>-->
-        
         <?php foreach ($this->topics as $topic) { ?>
             <li>
                 <div class="comment_box commentbox1">

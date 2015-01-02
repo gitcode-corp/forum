@@ -100,11 +100,35 @@
              'action' => 'addAction',
              'method' => 'GET'
          ],
-         'post-save' => [
+         'post-create' => [
              'pattern' => '/section/[:sectionId]/topic/[:topicId]/add-post',
              'controller' => 'Forum\Controller\PostController',
              'action' => 'createAction',
              'method' => 'POST',
+         ],
+         'post-edit' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/post/[:postId]/edit',
+             'controller' => 'Forum\Controller\PostController',
+             'action' => 'editAction',
+             'method' => 'GET'
+         ],
+         'post-update' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/post/[:postId]/edit',
+             'controller' => 'Forum\Controller\PostController',
+             'action' => 'updateAction',
+             'method' => 'POST'
+         ],
+         'post-remove' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/post/[:postId]/confirm-delete',
+             'controller' => 'Forum\Controller\PostController',
+             'action' => 'removeAction',
+             'method' => 'GET'
+         ],
+         'post-delete' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/post/[:postId]/delete',
+             'controller' => 'Forum\Controller\PostController',
+             'action' => 'deleteAction',
+             'method' => 'GET'
          ],
          'login' => [
              'pattern' => '/login',
@@ -132,9 +156,10 @@
     
     public function match()
     {
-        $uriParts = explode('/', $this->request->getRequestUri());
+        $uri = str_replace("?" . $this->request->getQuery() , "", $this->request->getRequestUri());
+        $uriParts = explode('/', $uri);
         $uriPartsNum = count($uriParts);
-        
+
         foreach ($this->routes as $routeName => $options) {
             $method = isset($options['method']) ? $options['method'] : null;
             if ($uriPartsNum !== count(explode('/', $options['pattern'])) || !$this->isValidMethod($method)) {

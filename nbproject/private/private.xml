@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/view/authentication/login.phtml</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Service/AuthenticationService.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Model/Entity/Command/User/RetrieveByUsernameCommand.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Service/UserManager.php</file>
-            <file>file:/C:/xampp/htdocs/forum/library/Soft/AbstractCommand.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Service/Factory/AuthenticationServiceFactory.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Controller/AuthenticationController.php</file>
-            <file>file:/C:/xampp/htdocs/forum/library/Soft/Application.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Security/Model/Entity/User.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/DashboardController.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Section/SectionForm.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Post/PostForm.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/TopicController.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Section/SectionValidator.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/PostController.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Post/PostValidator.php</file>
         </group>
     </open-files>
 </project-private>

@@ -12,10 +12,12 @@ class Request {
     private $requestUri = null;
     private $domain = "";
     private $scheme = "http";
+    private $query = "";
     
     public function __construct()
     {
         $this->requestUri = $_SERVER['REQUEST_URI'];
+        $this->query = $_SERVER['QUERY_STRING'];
         $this->data = $_REQUEST;
         $this->getParams = $_GET;
         $this->postParams = $_POST;
@@ -27,6 +29,11 @@ class Request {
     public function getRequestUri()
     {
         return $this->requestUri;
+    }
+    
+    public function getQuery()
+    {
+        return $this->query;
     }
     
     public function getParam($name, $default = null)

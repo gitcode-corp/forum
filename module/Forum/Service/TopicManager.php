@@ -9,7 +9,7 @@ use Forum\Model\Entity\Command\Topic\DeleteCommand;
 
 class TopicManager
 {
-        /**
+    /**
      * @var InsertCommand
      */
     private $insertTopicCommand;

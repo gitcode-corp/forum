@@ -14,8 +14,8 @@ class PostManagerFactory
     {
         $insertPostCommand = CommandFactory::create("Post\Insert");
         $updatePostCommand = CommandFactory::create("Post\Update");
-        $deletePostCommand = CommandFactory::create("Post\Delete");
+        $removePostContentCommand = CommandFactory::create("Post\RemoveContent");
         
-        return new PostManager($insertPostCommand, $updatePostCommand, $deletePostCommand);
+        return new PostManager($insertPostCommand, $updatePostCommand, $removePostContentCommand);
     }
 }

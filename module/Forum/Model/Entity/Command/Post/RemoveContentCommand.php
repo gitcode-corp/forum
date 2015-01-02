@@ -5,7 +5,7 @@ namespace Forum\Model\Entity\Command\Post;
 use Soft\AbstractCommand;
 use Forum\Model\Entity\Post;
 
-class UpdateCommand extends AbstractCommand
+class RemoveContentCommand extends AbstractCommand
 {
     /**
      * @var Post
@@ -19,8 +19,10 @@ class UpdateCommand extends AbstractCommand
     
     public function execute()
     {
+        
         $sql = "UPDATE posts SET ";
-        $sql .= "content='" . $this->escapeString($this->post->getContent()) ."' ";
+        $sql .= "content='Post został usunięty przez admina!', ";
+        $sql .= "is_edited_by_admin=1 ";
         $sql .= "WHERE id =" .$this->escapeString($this->post->getId());
         
         return $this->update($sql);

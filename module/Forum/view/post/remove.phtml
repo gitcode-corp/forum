@@ -1,0 +1,11 @@
+<a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->topic->getSection()->getId()]) ?>">
+    <h3>DZIAL: <?php echo $this->topic->getSection()->getName() ?></h3>
+</a>
+<a href="<?php echo $this->_uri->generate("topic-view", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId()]) ?>">
+    <h3>TEMAT: <?php echo $this->topic->getName() ?></h3>
+</a>
+
+Czy napewno chcesz usunąć post? <br/><br/>
+<a href="<?php echo $this->_uri->generate("post-delete", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId(), "postId" => $this->post->getId(), "token"=>$this->_user["token"]]) ?>">TAK</a>
+<a href="<?php echo $this->_uri->generate("topic-view", ["sectionId" => $this->topic->getSection()->getId(), "topicId" => $this->topic->getId()]) ?>">ANULUJ</a>
+
