@@ -5,25 +5,25 @@ namespace Security\Model\Entity\Command\User;
 use Soft\AbstractCommand;
 use Security\Service\Factory\UserManagerFactory;
 
-class RetrieveByUsernameCommand extends AbstractCommand
+class RetrieveByEmailCommand extends AbstractCommand
 {
     /**
      * @var string
      */
-    private $username;
+    private $email;
     
     /**
-     * @param string $username
+     * @param string $email
      */
-    public function setUsername($username)
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
     }
     public function execute()
     {
         $sql = "SELECT u.id AS u_id, u.username AS u_username, u.password AS u_password, u.salt AS u_salt, u.amount_posts AS u_amount_posts, u.created_on AS u_created_on ";
         $sql .= "FROM users u ";
-        $sql .= "WHERE u.username LIKE '".$this->escapeString($this->username)."'";
+        $sql .= "WHERE u.email LIKE '".$this->escapeString($this->email)."'";
 
         $row = $this->fetchOne($sql);
 

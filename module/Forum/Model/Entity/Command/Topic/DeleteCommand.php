@@ -4,6 +4,7 @@ namespace Forum\Model\Entity\Command\Topic;
 
 use Soft\AbstractCommand;
 use Forum\Model\Entity\Topic;
+use Forum\Model\Entity\Command\CommandFactory;
 
 class DeleteCommand extends AbstractCommand
 {
@@ -19,13 +20,18 @@ class DeleteCommand extends AbstractCommand
     
     public function execute()
     {
+        $command = CommandFactory::create('Post\DeleteAllInTopic');
+        $command->setTopicId($this->topic->getId());
+        $command->execute();
         
-        $sql = "UPDATE sections SET ";
-        $sql .= "name='" . $this->escapeString($this->section->getName()) ."', ";
-        $sql .= "description='" . $this->escapeString($this->section->getDescription()) ."', ";
-        $sql .= "is_closed =" . $this->escapeString($isClosed) ." ";
-        $sql .= "WHERE id =" .$this->escapeString($this->section->getId());
+        $command = CommandFactory::create('Section\UpdateAmountTopic');
+        $command->setSectionId($this->topic->getSection()->getId());
+        $command->decrease();
+        $command->execute();
         
-        return $this->update($sql);
+        $sql = "DELETE FROM topics ";
+        $sql .= "WHERE id =" .$this->escapeString($this->topic->getId());
+        
+        return $this->delete($sql);
     }
 }

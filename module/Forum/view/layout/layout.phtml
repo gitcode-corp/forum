@@ -16,6 +16,10 @@
                         <li><a <?php echo ($this->_menu === "login")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("login") ?>" class="last">Zaloguj</a></li>
                     <?php } ?>
                         
+                    <?php if (!$this->_guard->isAuthenticated()) { ?>
+                        <li><a <?php echo ($this->_menu === "registration")? 'class="current' : ""; ?>  href="<?php echo $this->_uri->generate("user-registration") ?>" class="last">Rejestracja</a></li>
+                    <?php } ?>
+                        
                     <?php if ($this->_guard->isGranted("ROLE_ADD_SECTION")) { ?>
                         <li style="float: right">
                             <a <?php echo ($this->_menu === "section-add")? 'class="current' : ""; ?> href="<?php echo $this->_uri->generate("section-add") ?>">+ dzial</a> 

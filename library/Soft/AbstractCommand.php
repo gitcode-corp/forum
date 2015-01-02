@@ -45,6 +45,11 @@ abstract class AbstractCommand
         return $this->query($sql);
     }
     
+    public function delete($sql)
+    {
+        return $this->query($sql);
+    }
+    
     private function query($sql)
     {
         $result = $this->dbConnection->query($sql);

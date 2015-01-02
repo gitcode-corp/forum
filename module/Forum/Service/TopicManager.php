@@ -100,5 +100,15 @@ class TopicManager
         $this->updateTopicCommand->setTopic($topic);
         return $this->updateTopicCommand->execute();
     }
+    
+    public function delete(Topic $topic)
+    {
+        if(!$topic->getSection() || !$topic->getSection()->getId()) {
+            throw new \InvalidArgumentException("Cannot delete topic without assigned section");
+        }
+        
+        $this->deleteTopicCommand->setTopic($topic);
+        return $this->deleteTopicCommand->execute();
+    }
 }
 

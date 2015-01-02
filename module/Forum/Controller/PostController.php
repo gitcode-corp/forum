@@ -192,18 +192,19 @@ class PostController extends AbstractController
         if ($topic->isClosed() || $topic->getSection()->isClosed()) {
             $isClosed = true;
         }
+        
         $isGranted = false;
-         
         if ($this->getGuardService()->isGranted("ROLE_EDIT_ALL_POSTS")) {
             $isGranted = true;
         } elseif (
             !$isClosed
             && !$post->isEditedByAdmin()
             && ($this->getGuardService()->isGranted("ROLE_EDIT_POST") 
-            && $this->getAuthService()->isUserAuthenticated($post->getUser()->getId()))
+            && $this->getGuardService()->isAuthUser($post->getUser()->getId()))
         ) {
             $isGranted = true;
         } 
+
 
         if ($throwException && !$isGranted) {
             $this->getGuardService()->throwForbiddenException();

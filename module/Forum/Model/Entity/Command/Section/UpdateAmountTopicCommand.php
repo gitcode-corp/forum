@@ -11,16 +11,31 @@ class UpdateAmountTopicCommand extends AbstractCommand
      */
     private $sectionId;
     
+    /**
+     * @var bool
+     */
+    private $increase = true;
+    
     public function setSectionId($sectionId)
     {
         $this->sectionId = $sectionId;
     }
     
+    public function decrease()
+    {
+        $this->increase = false;
+    }
+    
     public function execute()
     {
-        
         $sql = "UPDATE sections SET ";
-        $sql .= "amount_topics = amount_topics+1 ";
+        
+        if ($this->increase) {
+            $sql .= "amount_topics = amount_topics+1 ";
+        } else {
+            $sql .= "amount_topics = amount_topics-1 ";
+        }
+        
         $sql .= "WHERE id =" .$this->escapeString($this->sectionId);
         
         return $this->update($sql);

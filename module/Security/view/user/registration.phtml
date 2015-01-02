@@ -1,0 +1,57 @@
+
+<form method="POST">
+    <?php foreach ($this->messages as $message) { ?>
+        <div style="color: green"><?php echo $message["message"] ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("csrf_token") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <?php foreach ($this->form->getError("unexpected") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    
+    <?php foreach ($this->form->getError("u_username") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Login:</label><br/>
+        <input name="u_username" value="<?php echo $this->form->get("u_username") ?>" >
+    </div>
+        
+    <?php foreach ($this->form->getError("u_email") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>E-mail:</label><br/>
+        <input name="u_email" value="<?php echo $this->form->get("u_email") ?>" >
+    </div>
+        
+    <?php foreach ($this->form->getError("u_password") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Haslo:</label><br/>
+        <input type="password" name="u_password" value="" >
+    </div>
+        
+    <?php foreach ($this->form->getError("repeat_password") as $error) { ?>
+        <div style="color: red"><?php echo $error ?></div>
+    <?php } ?>
+        
+    <div>
+        <label>Powtorz haslo:</label><br/>
+        <input type="password" name="repeat_password" value="" >
+    </div>
+        
+    <input type="hidden" name="csrf_token" value="<?php echo $this->form->getCsrfToken() ?>" />
+    
+    <br /><br />
+    <input type="submit" value="zapisz" />
+    
+</form>

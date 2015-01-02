@@ -3,9 +3,21 @@
 namespace Security\Service;
 
 use Security\Model\Entity\User;
+use Security\Model\Entity\Command\User\InsertCommand;
+
 
 class UserManager
 {
+    /**
+     * @var InsertCommand 
+     */
+    private $insertUserCommand;
+    
+    public function __construct(InsertCommand $insertUserCommand)
+    {
+        $this->insertUserCommand = $insertUserCommand;
+    }
+    
     /**
      * @param array $data
      * @return \Security\Service\User
@@ -19,6 +31,10 @@ class UserManager
         
         if (array_key_exists("u_username", $data)) {
             $user->setUsername($data['u_username']);
+        }
+        
+        if (array_key_exists("u_email", $data)) {
+            $user->setEmail($data['u_email']);
         }
         
         if (array_key_exists("u_password", $data)) {
@@ -38,6 +54,16 @@ class UserManager
         }
         
         return $user;
+    }
+    
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function save(User $user)
+    {
+        $this->insertUserCommand->setUser($user);
+        return $this->insertUserCommand->execute();
     }
 }
 

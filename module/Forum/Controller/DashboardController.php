@@ -14,7 +14,8 @@ class DashboardController extends AbstractController
                 'Forum/view/dashboard/view.phtml', 
                 [
                     'sections' => $sections,
-                    '_menu' => "home"
+                    '_menu' => "home",
+                    'messages' => \Soft\FlashMessage::get()
                 ]
             );
     }

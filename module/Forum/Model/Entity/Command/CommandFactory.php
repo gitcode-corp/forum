@@ -14,6 +14,7 @@ class CommandFactory extends AbstractCommandFactory
         'Section\Delete' => 'Forum\Model\Entity\Command\Section\DeleteCommand',
         'Section\UpdateAmountTopic' => 'Forum\Model\Entity\Command\Section\UpdateAmountTopicCommand',
         'Topic\RetrieveAllWithLastPost' => 'Forum\Model\Entity\Command\Topic\RetrieveAllWithLastPostCommand',
+        'Topic\RetrieveAllInSection' => 'Forum\Model\Entity\Command\Topic\RetrieveAllInSectionCommand',
         'Topic\RetrieveOne' => 'Forum\Model\Entity\Command\Topic\RetrieveOneCommand',
         'Topic\Insert' => 'Forum\Model\Entity\Command\Topic\InsertCommand',
         'Topic\Update' => 'Forum\Model\Entity\Command\Topic\UpdateCommand',
@@ -22,7 +23,7 @@ class CommandFactory extends AbstractCommandFactory
         'Post\RetrieveAllInTopic' => 'Forum\Model\Entity\Command\Post\RetrieveAllInTopicCommand',
         'Post\Insert' => 'Forum\Model\Entity\Command\Post\InsertCommand',
         'Post\Update' => 'Forum\Model\Entity\Command\Post\UpdateCommand',
-        'Post\Delete' => 'Forum\Model\Entity\Command\Post\DeleteCommand',
+        'Post\DeleteAllInTopic' => 'Forum\Model\Entity\Command\Post\DeleteAllInTopicCommand',
         'Post\RetrieveOne' => 'Forum\Model\Entity\Command\Post\RetrieveOneCommand',
         'Post\RemoveContent' => 'Forum\Model\Entity\Command\Post\RemoveContentCommand',
     ];

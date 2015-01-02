@@ -6,6 +6,8 @@
         <h3>TEMAT: <?php echo $this->topic->getName() ?></h3>
     </a>
     
+    <p><?php echo $this->topic->getDescription() ?></p>
+    
     <?php foreach ($this->messages as $message) { ?>
         <div style="color: green"><?php echo $message["message"] ?></div>
     <?php } ?>

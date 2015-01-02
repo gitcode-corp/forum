@@ -22,7 +22,7 @@ class RetrieveAllWithLastPostCommand extends AbstractCommand
     
     public function execute()
     {
-        $sql = "SELECT t.id AS t_id, t.name AS t_name, t.amount_posts AS t_amount_posts, t.created_on AS t_created_on, ";
+        $sql = "SELECT t.id AS t_id, t.name AS t_name, t.description AS t_description, t.amount_posts AS t_amount_posts, t.created_on AS t_created_on, ";
         $sql .= "p.id AS p_id, p.created_on AS p_created_on, ";
         $sql .= "u.id AS u_id, u.username AS u_username, ";
         $sql .= "ut.id AS ut_id, ut.username AS ut_username, ";

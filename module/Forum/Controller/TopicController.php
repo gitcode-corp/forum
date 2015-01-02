@@ -126,6 +126,40 @@ class TopicController extends AbstractController
         
     }
     
+    public function removeAction($sectionId, $topicId)
+    {
+        $this->assertGranted("ROLE_DELETE_TOPIC");
+        if ($this->request->getParam("token") !== $this->getAuthUserToken()) {
+            $this->throwPageNonFoundException();
+        }
+        
+        $topic = $this->retrieveTopic($sectionId, $topicId);
+        
+        return $this->createViewModel(
+                'Forum/view/topic/remove.phtml', 
+                [
+                    "section" => $topic->getSection(),
+                    "topic" => $topic
+                ]
+            );
+    }
+    
+    public function deleteAction($sectionId, $topicId)
+    {
+        $this->assertGranted("ROLE_DELETE_TOPIC");
+        if ($this->request->getParam("token") !== $this->getAuthUserToken()) {
+            $this->throwPageNonFoundException();
+        }
+        
+        $topic = $this->retrieveTopic($sectionId, $topicId);
+        
+        $topicManager = TopicManagerFactory::create();
+        $topicManager->delete($topic);
+        
+        \Soft\FlashMessage::add("Temat został usunięty.");
+        $this->redirect("topic-list", ["sectionId"=>$topic->getSection()->getId()]);
+    }
+    
     private function createForm()
     {
         if ($this->getGuardService()->isGranted("ROLE_CHANGE_TOPIC_STATUS")) {
@@ -163,7 +197,7 @@ class TopicController extends AbstractController
         } elseif (
             !$isClosed
             && ($this->getGuardService()->isGranted("ROLE_EDIT_TOPIC") 
-            && $this->getAuthService()->isUserAuthenticated($topic->getUser()->getId()))
+            && $this->getGuardService()->isAuthUser($topic->getUser()->getId()))
         ) {
             $isGranted = true;
         } 

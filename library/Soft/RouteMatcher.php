@@ -33,19 +33,25 @@
              'method' => 'POST'
          ],
          'section-edit' => [
-             'pattern' => '/section/edit/[:sectionId]',
+             'pattern' => '/section/[:sectionId]/edit',
              'controller' => 'Forum\Controller\SectionController',
              'action' => 'editAction',
              'method' => 'GET'
          ],
          'section-update' => [
-             'pattern' => '/section/edit/[:sectionId]',
+             'pattern' => '/section/[:sectionId]/edit',
              'controller' => 'Forum\Controller\SectionController',
              'action' => 'updateAction',
              'method' => 'POST'
          ],
+         'section-remove' => [
+             'pattern' => '/section/[:sectionId]/comfirm-delete',
+             'controller' => 'Forum\Controller\SectionController',
+             'action' => 'removeAction',
+             'method' => 'GET'
+         ],
          'section-delete' => [
-             'pattern' => '/section/remove/[:sectionId]',
+             'pattern' => '/section/[:sectionId]/delete',
              'controller' => 'Forum\Controller\SectionController',
              'action' => 'deleteAction',
              'method' => 'GET'
@@ -88,8 +94,14 @@
              'action' => 'updateAction',
              'method' => 'POST'
          ],
+         'topic-remove' => [
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/confirm-delete',
+             'controller' => 'Forum\Controller\TopicController',
+             'action' => 'removeAction',
+             'method' => 'GET'
+         ],
          'topic-delete' => [
-             'pattern' => '/section/[:sectionId]/topic/[:topicId]/remove',
+             'pattern' => '/section/[:sectionId]/topic/[:topicId]/delete',
              'controller' => 'Forum\Controller\TopicController',
              'action' => 'deleteAction',
              'method' => 'GET'
@@ -146,6 +158,18 @@
              'pattern' => '/logout',
              'controller' => 'Security\Controller\AuthenticationController',
              'action' => 'logoutAction',   
+         ],
+         'user-registration' => [
+             'pattern' => '/registration',
+             'controller' => 'Security\Controller\UserController',
+             'action' => 'registerAction',
+             'method' => 'GET'
+         ],
+         'user-create' => [
+             'pattern' => '/registration',
+             'controller' => 'Security\Controller\UserController',
+             'action' => 'createAction',
+             'method' => 'POST'
          ],
      ];
      

@@ -4,6 +4,7 @@ namespace Forum\Controller;
 
 use Forum\Model\Entity\Command\CommandFactory;
 use Security\Service\Factory\UserManagerFactory;
+use Forum\Service\Factory\SectionManagerFactory;
 
 class SectionController extends AbstractController
 {
@@ -98,6 +99,41 @@ class SectionController extends AbstractController
                     "messages" => []
                 ]
             );
+    }
+    
+     public function removeAction($sectionId)
+    {
+        $this->assertGranted("ROLE_DELETE_SECTION");
+
+        if ($this->request->getParam("token") !== $this->getAuthUserToken()) {
+            $this->throwPageNonFoundException();
+        }
+        
+        $section = $this->retrieveSection($sectionId);
+        
+        return $this->createViewModel(
+                'Forum/view/section/remove.phtml', 
+                [
+                    "section" => $section,
+                ]
+            );
+    }
+    
+    public function deleteAction($sectionId)
+    {
+        $this->assertGranted("ROLE_DELETE_SECTION");
+
+        if ($this->request->getParam("token") !== $this->getAuthUserToken()) {
+            $this->throwPageNonFoundException();
+        }
+        
+        $section = $this->retrieveSection($sectionId);
+       
+        $sectionManager = SectionManagerFactory::create();
+        $sectionManager->delete($section);
+        
+        \Soft\FlashMessage::add("Dzial został usunięty.");
+        $this->redirect("main");
     }
     
     private function createForm()

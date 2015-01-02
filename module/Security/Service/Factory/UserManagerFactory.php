@@ -3,6 +3,7 @@
 namespace Security\Service\Factory;
 
 use Security\Service\UserManager;
+use Security\Model\Entity\Command\CommandFactory;
 
 class UserManagerFactory
 {
@@ -11,7 +12,8 @@ class UserManagerFactory
      */
     public static function create()
     {
-        return new UserManager();
+        $insertCommand = CommandFactory::create("User\Insert");
+        return new UserManager($insertCommand);
         
     }
 }

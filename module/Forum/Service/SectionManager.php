@@ -98,6 +98,12 @@ class SectionManager
         $this->updateSectionCommand->setSection($section);
         return $this->updateSectionCommand->execute();
     }
+    
+    public function delete(Section $section)
+    {
+        $this->deleteSectionCommand->setSection($section);
+        return $this->deleteSectionCommand->execute();
+    }
    
 }
 

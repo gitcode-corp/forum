@@ -17,6 +17,11 @@ class User
     /**
      * @var string
      */
+    private $email;
+    
+    /**
+     * @var string
+     */
     private $password;
     
     /**
@@ -141,5 +146,18 @@ class User
         $this->createdOn = $createdOn;
         return $this;
     }
+    
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+
 }
 

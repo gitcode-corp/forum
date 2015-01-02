@@ -22,7 +22,7 @@
                             <?php } ?>
                                 
                             <?php if ($this->_guard->isGranted("ROLE_DELETE_SECTION")) { ?>
-                                <a href="<?php echo $this->_uri->generate("section-delete", ["sectionId"=>$section->getId()]) ?>">USUŃ</a>
+                                <a href="<?php echo $this->_uri->generate("section-remove", ["sectionId"=>$section->getId(), "token"=>$this->_user["token"]]) ?>">USUŃ</a>
                             <?php } ?>
                         </p>
                     </div>

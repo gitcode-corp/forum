@@ -1,0 +1,8 @@
+<a href="<?php echo $this->_uri->generate("topic-list", ["sectionId" => $this->section->getId()]) ?>">
+    <h3>DZIAL: <?php echo $this->section->getName() ?></h3>
+</a>
+
+Czy napewno chcesz usunąć dział? <br/><br/>
+<a href="<?php echo $this->_uri->generate("section-delete", ["sectionId" => $this->section->getId(), "token"=>$this->_user["token"]]) ?>">TAK</a>
+<a href="<?php echo $this->_uri->generate("main") ?>">ANULUJ</a>
+
