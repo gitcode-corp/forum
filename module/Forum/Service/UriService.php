@@ -36,6 +36,12 @@ class UriService
             $url = $pattern;
         }
         
+        if ($url == "/") {
+            $url = \Soft\RouteMatcher::HOST;
+        } elseif (\Soft\RouteMatcher::HOST !== "/") {
+            $url = substr($url, 1);
+        }
+        
         return $url;
     }
 }

@@ -106,6 +106,10 @@ abstract class AbstractController
     protected function redirect($name, array $params = [])
     {
         $url = $this->getUriService()->generate($name, $params);
+        if (strpos($url, \Soft\RouteMatcher::HOST) !== 0) {
+            $url = \Soft\RouteMatcher::HOST . $url;
+        }
+        
         header("Location: " . $url);
         \Soft\Application::terminate();
     }

@@ -3,6 +3,7 @@
  
  class RouteMatcher
  {
+     const HOST = "/";
      /**
       * @var Request
       */
@@ -180,7 +181,7 @@
     
     public function match()
     {
-        $uri = str_replace("?" . $this->request->getQuery() , "", $this->request->getRequestUri());
+        $uri = str_replace(["?" . $this->request->getQuery(), self::HOST] , ["", "/"], $this->request->getRequestUri());
         $uriParts = explode('/', $uri);
         $uriPartsNum = count($uriParts);
 

@@ -1,0 +1,9 @@
+
+RewriteEngine On
+RewriteBase /
+
+SetEnv APPLICATION_ENV development
+
+RewriteRule        (^|^/)(web/)(.*)$  public/$2$3 [L]
+
+RewriteRule ^(.*)$ public/index.php [L]
