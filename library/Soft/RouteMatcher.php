@@ -3,7 +3,7 @@
  
  class RouteMatcher
  {
-     const HOST = "/";
+     const HOST = "/forum/";
      /**
       * @var Request
       */

@@ -1,6 +1,6 @@
 
 RewriteEngine On
-RewriteBase /
+RewriteBase /forum/
 
 SetEnv APPLICATION_ENV development
 

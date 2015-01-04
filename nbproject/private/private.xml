@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Section/SectionForm.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Post/PostForm.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/TopicController.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Section/SectionValidator.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/PostController.php</file>
-            <file>file:/C:/xampp/htdocs/forum/module/Forum/Model/Form/Post/PostValidator.php</file>
+            <file>file:/C:/xampp/htdocs/forum/.htaccess</file>
+            <file>file:/C:/xampp/htdocs/forum/library/Soft/RouteMatcher.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Service/UriService.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/SectionController.php</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/Controller/AbstractController.php</file>
+            <file>file:/C:/xampp/htdocs/forum/public/.htaccess</file>
+            <file>file:/C:/xampp/htdocs/forum/module/Forum/view/layout/header.phtml</file>
         </group>
     </open-files>
 </project-private>
